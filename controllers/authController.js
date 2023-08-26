@@ -95,6 +95,7 @@ export const loginController = async (req, res) => {
                 email: user.email,
                 phone: user.phone,
                 address: user.address,
+                role: user.role
             },
             token,
         });
@@ -129,7 +130,7 @@ export const forgotPasswordController = async (req, res) => {
             })
         }
         const hashed = await hashPassword(newPassword);
-        await userModel.findByIdAndUpdate(user._id, { password: newPassword })
+        await userModel.findByIdAndUpdate(user._id, { password: hashed })
         res.status(200).send({
             success: false,
             message: 'Password Reset Successfully'
